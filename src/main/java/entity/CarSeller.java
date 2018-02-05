@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class carSeller extends BaseEntity{
+public class CarSeller extends BaseEntity{
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -41,6 +41,15 @@ public class carSeller extends BaseEntity{
 		return "carSeller [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", phoneNumber="
 				+ phoneNumber + ", getId()=" + getId() + "]";
 	}
+
+	public CarSeller(String firstName, String lastName, int age, String phoneNumber) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.phoneNumber = phoneNumber;
+	}
+	
 	
 	
 }

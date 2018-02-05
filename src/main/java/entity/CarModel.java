@@ -3,6 +3,7 @@ package entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,29 +24,40 @@ public class CarModel extends BaseEntity{
 
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-						  CascadeType.PERSIST, CascadeType.REFRESH})
+						  CascadeType.PERSIST, CascadeType.REFRESH},
+						  fetch = FetchType.LAZY)
 	@JoinColumn(name = "engine_capacity_id")
 	private CarEngineCapacity engineCapacity;
 	
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-			  CascadeType.PERSIST, CascadeType.REFRESH})
+			  CascadeType.PERSIST, CascadeType.REFRESH},
+			  fetch = FetchType.LAZY)
 	@JoinColumn(name = "fuel_type_id")
 	private CarFuelType fuelType;
 	
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-			  CascadeType.PERSIST, CascadeType.REFRESH})
+			  CascadeType.PERSIST, CascadeType.REFRESH},
+			  fetch = FetchType.LAZY)
 	@JoinColumn(name = "color_id")
 	private CarColor color;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, 
+				fetch = FetchType.LAZY)
 	@JoinColumn(name = "car_make_id")
 	private CarMake make;
+	
+	
 	
 	@Override
 	public String toString() {
 		return "CarModel [modelTitle=" + modelTitle + ", getId()=" + getId() + "]";
+	}
+
+	public CarModel(String modelTitle) {
+		super();
+		this.modelTitle = modelTitle;
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,14 +33,19 @@ public class CarMake extends BaseEntity{
 			  CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<CarModel> models = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "carMake", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "carMake", cascade = CascadeType.ALL,
+			  fetch = FetchType.LAZY)
 	private Car car;
+
+	public CarMake(String makeTitle, int manufactureYear) {
+		super();
+		this.makeTitle = makeTitle;
+		this.manufactureYear = manufactureYear;
+	}
 	
 	@Override
 	public String toString() {
 		return "CarMake [makeTitle=" + makeTitle + ", manufactureYear=" + manufactureYear + ", getId()=" + getId()
 				+ "]";
 	}
-	
-	
 }

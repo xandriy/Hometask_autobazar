@@ -27,11 +27,13 @@ public class CarColor extends BaseEntity{
 			  CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<CarModel> models = new ArrayList<>();
 	
+	public CarColor(String color) {
+		super();
+		this.color = color;
+	}
+	
 	@Override
 	public String toString() {
 		return "CarColor [color=" + color + ", getId()=" + getId() + "]";
 	}
-	
-	
-	
 }

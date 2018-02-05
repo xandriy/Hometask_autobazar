@@ -28,11 +28,14 @@ public class CarEngineCapacity extends BaseEntity{
 			  CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<CarModel> models = new ArrayList<>();
 	
+	public CarEngineCapacity(BigDecimal engineCapacity) {
+		super();
+		this.engineCapacity = engineCapacity;
+	}
+	
 	@Override
 	public String toString() {
 		return "CarEngineCapacity [engineCapacity=" + engineCapacity + ", getId()=" + getId() + "]";
 	}
-	
-	
-	
+
 }

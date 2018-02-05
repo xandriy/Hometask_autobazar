@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -25,19 +26,27 @@ public class Car extends BaseEntity{
 	private BigDecimal sellPrice;
 	
 	@OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-						  CascadeType.PERSIST, CascadeType.REFRESH})
+						  CascadeType.PERSIST, CascadeType.REFRESH},
+						fetch = FetchType.LAZY)
 	@JoinColumn(name = "car_make_id")
 	private CarMake carMake;
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-						  CascadeType.PERSIST, CascadeType.REFRESH})
+						  CascadeType.PERSIST, CascadeType.REFRESH},
+						  fetch = FetchType.LAZY)
 	@JoinColumn(name = "seller_id")
-	private carSeller seller;
+	private CarSeller seller;
 
 	@Override
 	public String toString() {
 		return "Car [sellPrice=" + sellPrice + ", getId()=" + getId() + "]";
 	}
+
+	public Car(BigDecimal sellPrice) {
+		super();
+		this.sellPrice = sellPrice;
+	}
+	
 	
 	
 }
