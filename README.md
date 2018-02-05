@@ -1,0 +1,1 @@
+Hometask autobazar, with lombok
