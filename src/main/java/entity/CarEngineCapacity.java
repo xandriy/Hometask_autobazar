@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = "models")
 public class CarEngineCapacity extends BaseEntity{
 
 	@Column(name = "engine_capacity", columnDefinition = "DECIMAL(2,1)")
@@ -29,7 +31,6 @@ public class CarEngineCapacity extends BaseEntity{
 	private List<CarModel> models = new ArrayList<>();
 	
 	public CarEngineCapacity(BigDecimal engineCapacity) {
-		super();
 		this.engineCapacity = engineCapacity;
 	}
 	

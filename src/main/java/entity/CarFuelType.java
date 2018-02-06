@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = "models")
 public class CarFuelType extends BaseEntity{
 
 	@Enumerated(value = EnumType.STRING)
@@ -31,7 +33,6 @@ public class CarFuelType extends BaseEntity{
 	private List<CarModel> models = new ArrayList<>();
 	
 	public CarFuelType(FuelType fuelType) {
-		super();
 		this.fuelType = fuelType;
 	}
 	

@@ -1,17 +1,16 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = {"car", "model"})
 public class CarMake extends BaseEntity{
 
 	@Column(name = "make_title")
@@ -29,16 +29,16 @@ public class CarMake extends BaseEntity{
 	@Column(name = "manufacture_year")
 	private int manufactureYear;
 
-	@OneToMany(mappedBy = "make", cascade = {CascadeType.DETACH, CascadeType.MERGE,
-			  CascadeType.PERSIST, CascadeType.REFRESH})
-	private List<CarModel> models = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL, 
+			fetch = FetchType.LAZY )
+	@JoinColumn(name = "car_model_id", nullable = true)
+	private CarModel model;
 	
 	@OneToOne(mappedBy = "carMake", cascade = CascadeType.ALL,
 			  fetch = FetchType.LAZY)
 	private Car car;
 
 	public CarMake(String makeTitle, int manufactureYear) {
-		super();
 		this.makeTitle = makeTitle;
 		this.manufactureYear = manufactureYear;
 	}

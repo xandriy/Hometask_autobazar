@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = {"engineCapacity", "fuelType", "color", "make"})
 public class CarModel extends BaseEntity{
 
 	@Column(name = "model_title")
@@ -43,9 +46,8 @@ public class CarModel extends BaseEntity{
 	@JoinColumn(name = "color_id")
 	private CarColor color;
 	
-	@ManyToOne(cascade = CascadeType.ALL, 
-				fetch = FetchType.LAZY)
-	@JoinColumn(name = "car_make_id")
+	@OneToOne(mappedBy = "model", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+			  CascadeType.PERSIST, CascadeType.REFRESH})
 	private CarMake make;
 	
 	
@@ -56,7 +58,6 @@ public class CarModel extends BaseEntity{
 	}
 
 	public CarModel(String modelTitle) {
-		super();
 		this.modelTitle = modelTitle;
 	}
 	

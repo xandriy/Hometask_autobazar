@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = "models")
 public class CarColor extends BaseEntity{
 
 	@Column(name = "color")
@@ -28,7 +30,6 @@ public class CarColor extends BaseEntity{
 	private List<CarModel> models = new ArrayList<>();
 	
 	public CarColor(String color) {
-		super();
 		this.color = color;
 	}
 	

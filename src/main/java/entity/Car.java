@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = {"carMake", "seller" })
 public class Car extends BaseEntity{
 
 	@Column(name = "sell_price", columnDefinition = "DECIMAL(10,3)")
@@ -43,7 +45,6 @@ public class Car extends BaseEntity{
 	}
 
 	public Car(BigDecimal sellPrice) {
-		super();
 		this.sellPrice = sellPrice;
 	}
 	
