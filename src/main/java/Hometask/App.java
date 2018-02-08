@@ -1,11 +1,18 @@
 package Hometask;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import entity.Car;
 import entity.CarColor;
@@ -204,6 +211,154 @@ public class App
 //    			.getSingleResult();
 //    	
 //    	System.out.println(color);
+    	
+    	//   Criteria API queries
+    	
+    	CriteriaBuilder cb = em.getCriteriaBuilder();
+    	
+    	//  1
+    	// SELECT m FROM CarModels m
+    	
+//    	CriteriaQuery<CarModel> modelQuery = cb.createQuery(CarModel.class);
+//    	Root<CarModel> modelRoot = modelQuery.from(CarModel.class);
+//    	modelQuery.select(modelRoot);
+    	
+//    	List<CarModel> models = em.createQuery(modelQuery).getResultList();
+//    	models.forEach(m -> System.out.println(m));
+    	
+    	//  2
+    	// SELECT m.color FROM CarModel m WHERE m.id = 1
+    	
+//    	CriteriaQuery<CarColor> query = cb.createQuery(CarColor.class);
+//    	Root<CarModel> root = query.from(CarModel.class);
+//    	query.select(root.get("color"));
+//    	Expression<CarModel> colorExpression = root.get("id");
+//    	Predicate idPredaicate = cb.equal(colorExpression, new Long(1));
+//    	query.where(idPredaicate);
+//    	System.out.println(em.createQuery(query).getSingleResult());
+//    	
+    	
+    	//   3
+    	//  SELECT c FROM CarModel c WHERE c.modelTitle LIKE '%a%'
+    	
+//    	CriteriaQuery<CarModel> query = cb.createQuery(CarModel.class);
+//    	Root<CarModel> root = query.from(CarModel.class);
+//    	query.select(root);
+//    	Expression<String> expression = root.get("modelTitle");
+//    	Predicate predicate = cb.like(expression, "%a%");    	
+//    	query.where(predicate);
+//    	
+//    	List<CarModel> models = em.createQuery(query).getResultList();
+//    	models.forEach(m -> System.out.println(m));
+    	
+    	
+    	//   4
+    	//   SELECT c FROM Car c WHERE c.price >= 17000 AND c.carMake.makeTitle  LIKE 'Volks%'
+//    	
+//    	CriteriaQuery<Car> query = cb.createQuery(Car.class);    	
+//    	Root<Car> root = query.from(Car.class);
+//    	query.select(root);
+//    	Expression<BigDecimal> priceExpression = root.get("sellPrice");
+//    	Predicate pricePredicate = cb.ge(priceExpression, new BigDecimal("17000"));
+//    	
+//    	Expression<String> makeTitleExpression = root.get("carMake").get("makeTitle");
+//     	Predicate makeTitlePredicate = cb.like(makeTitleExpression, "Volks%");
+//    	Predicate allPredicate = cb.and(pricePredicate, makeTitlePredicate);
+//    	query.where(allPredicate);
+//    	
+//    	List<Car> cars = em.createQuery(query).getResultList();
+//    	cars.forEach(c -> System.out.println(c + " - " + c.getCarMake()));
+    	
+    	//  5
+    	// SELECT cm FROM CarMake cm WHERE cm.model.color.color = "Black" 
+    	// 		cm.model.engineCapacity.engineCapacity BETWEEN 1.6 AND 2.5					
+    	
+//    	CriteriaQuery<CarMake> query = cb.createQuery(CarMake.class);
+//    	Root<CarMake> root = query.from(CarMake.class);
+//    	query.select(root);
+//    	
+//    	Expression<String> colorExpression = root.get("model").get("color").get("color");
+//    	Predicate colorPredicate = cb.equal(colorExpression, "Black");
+//    	
+//    	Expression<BigDecimal> capacityExpression = root.get("model").get("engineCapacity")
+//    			.get("engineCapacity");
+//    	Predicate capacityPredicate = cb.between(capacityExpression, new BigDecimal("1.6"), new BigDecimal(2.5));
+//    	Predicate allPredicate = cb.and(colorPredicate, capacityPredicate);
+//    	
+//    	query.where(allPredicate);
+//    	System.out.println(em.createQuery(query).getSingleResult());
+    	
+    	
+    	//  6
+    	// SELECT md FROM CarMake mk JOIN mk.model md WHERE md.id = 3
+    	
+//    	CriteriaQuery<CarMake> query = cb.createQuery(CarMake.class);
+//    	Root<CarMake> root = query.from(CarMake.class);
+//    	query.select(root);
+//    	
+//    	Join<CarMake, CarModel> carMakeJoin = root.join("model");
+//    	Expression<Long> carMakeIdJoin = root.get("id");
+//    	Predicate carMakeIdPredicate = cb.equal(carMakeIdJoin, new Long(3));
+//    	query.where(carMakeIdPredicate);
+//    	
+//    	System.out.println(em.createQuery(query).getSingleResult());
+    	
+    	//  7 
+    	// SELECT m FROM CarModel m JOIN m.color c WHERE m.id = 2 AND c.color = "green"
+    	
+//    	
+//    	CriteriaQuery<CarModel> query = cb.createQuery(CarModel.class);
+//    	Root<CarModel> root = query.from(CarModel.class);
+//    	query.select(root);
+//    	
+//    	Expression<Long> carModelIdExpression = root.get("id");
+//    	Predicate carModelIdPredicate = cb.ge(carModelIdExpression, new Long(2));
+//    	
+//    	Join<CarModel, CarColor> carColorJoin = root.join("color");
+//    	Expression<String> carColorExperession = carColorJoin.get("color");
+//    	Predicate colorPredicate = cb.equal(carColorExperession, "green");
+//    	
+//    	Predicate allPredicate = cb.and(carModelIdPredicate, colorPredicate);
+//    	
+//    	query.where(allPredicate);
+//    	System.out.println(em.createQuery(query).getSingleResult());
+    	
+    	//  8
+    	//  SELECT COUNT(f.id) FROM CarFuelType f
+    	
+//    	CriteriaQuery<Long> query = cb.createQuery(Long.class);
+//    	Root<CarFuelType> root = query.from(CarFuelType.class); 
+//    	query.select(cb.count(root.get("id")));
+//    	
+//    	System.out.println(em.createQuery(query).getSingleResult());
+    
+    	//  9
+    	//  SELECT s FROM CarSeller WHERE s.firstName IN ('Bill','Jonh')
+    	
+//    	CriteriaQuery<CarSeller> query = cb.createQuery(CarSeller.class);
+//    	Root<CarSeller> root = query.from(CarSeller.class);
+//    	query.select(root);
+//    	List<String> names = Arrays.asList("Bill","Jonh");
+//    	Expression<String> sellerExpression = root.get("firstName");
+//    	Predicate sellerPredicate = sellerExpression.in(names);
+//    	
+//    	em.createQuery(query).getResultList().forEach(s -> System.out.println(s));
+    	
+    	
+    	//  10
+    	//  SELECT m FROM CarModel m WHERE m.fuelType = FuelType.DIESEL
+    	
+//    	CriteriaQuery<CarModel> query = cb.createQuery(CarModel.class);
+//    	Root<CarModel> root = query.from(CarModel.class);
+//    	query.select(root);
+//    	Expression<FuelType> fuelTypeExpression = root.get("fuelType").get("fuelType");
+//    	Predicate fuelTypePredicate = cb.equal(fuelTypeExpression, FuelType.DIESEL);
+//    	query.where(fuelTypePredicate);
+//    	em.createQuery(query).getResultList().forEach(m -> System.out.println(m));
+    	
+    	
+    	
+    	
     	
     	em.getTransaction().commit();
     	em.close();
